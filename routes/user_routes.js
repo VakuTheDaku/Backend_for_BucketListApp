@@ -57,8 +57,7 @@ router.post('/create-user', async(req,res,next)=>{
     
     const name=req.body.name
     const email=req.body.email;
-    req.session.isLoggedIn=false
-    req.session.name=team[0].name
+    
     let hashpass=await bcrypt.hash(req.body.password, 8)
     
     if(email!="" || name !=""){
@@ -70,11 +69,11 @@ router.post('/create-user', async(req,res,next)=>{
        
     }).then((result)=>{
         if(result){
-            req.session.isLoggedIn=true
-            req.session.name=team[0].name
+            
             return res.json({status: "Registered"})
         }
     }).catch(err=>{
+        console.log(err)
         return res.json({status: "Error"})
         
     })
