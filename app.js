@@ -26,13 +26,16 @@ app.use(bodyparser.urlencoded({extended:true}))
 app.use(bodyparser.json());
 
 
-
+app.set("port", process.env.PORT ||3000)
 app.use(express.json())
 
 app.use("/",router)
 sequelize.sync().then(result=>{
+    console.log(result)
     
-    app.listen(3000)
 }).catch(err=>{
     console.log(err)
+})
+app.listen(app.get("port"), function(){
+	console.log("server started on port"+app.get("port"))
 })
